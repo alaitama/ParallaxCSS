@@ -1,0 +1,93 @@
+<!--
+   ParallaxCSS.html
+   
+   Copyright 2013 90025807 <90025807@W152712>
+   
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+   
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+   
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software
+   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+   MA 02110-1301, USA.
+   
+   
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+	<title>Parallax CSS3</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<meta name="generator" content="Geany 1.22" />
+    
+    <link href="ParallaxCSS.css" rel="stylesheet" type="text/css" />
+    
+    <script src="jquery-1.9.0.js" type="text/javascript"></script>
+</head>
+
+<body>
+
+    <div id="parallax">
+        <div id="fondo"></div>
+        <div id="arbol"></div>
+        <div id="cesped"></div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // Handler for .ready() called.
+            console.log("Document.ready");
+            
+            var then = Date.now();
+            
+            var divParallax = document.getElementById("parallax");
+            
+            var HEIGHT = divParallax.offsetHeight;
+            var WIDTH = divParallax.offsetWidth;
+            
+            var grassDelay = 0;
+            var grassWidth = 109;
+            
+            console.log("Parallax size: width="+WIDTH + ", height="+ HEIGHT);
+            
+            var main = function() {
+                var now = Date.now();
+                var delta = now - then;
+                
+                updateDivs(delta / 1000);
+                
+                
+                then = now;
+            };
+            
+            var updateDivs = function(modifier) {
+                
+                grassDelay -= 50 * modifier;
+                
+                if(grassDelay > grassWidth)
+                    grassDelay += grassWidth;
+                
+                var backgroundPosValue = grassDelay + "px 350px";
+                $("#fondo").css("background-position",backgroundPosValue);
+                
+            };
+            
+            setInterval(main, 1000/60);
+            
+        });
+    </script>
+
+
+</body>
+
+</html>
